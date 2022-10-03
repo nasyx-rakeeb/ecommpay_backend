@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
   return res.status(200).json({"STATUS": "Ok", "MESSAGE": "Server is up and running"})
 })
 app.get("/test", (req, res) => {
-  return res.status(302).redirect("https://codipher.com")
+  return res.status(302).redirect("https://google.com")
 })
 app.post("/pay", (req, res) => {
   const payId = uuidv4()
