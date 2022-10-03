@@ -26,7 +26,7 @@ app.post("/pay", (req, res) => {
   payment.paymentCurrency = payCurrency
   payment.paymentDescription = payDesc
   const payUrl = payment.getUrl()
-  return res.status(302).redirect(payUrl)
+  return res.status(302).json({"URL": payUrl})
 })
 
 app.listen(PORT, () => console.log("Server is running on port: " + PORT))
