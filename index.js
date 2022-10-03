@@ -12,7 +12,10 @@ app.use(express.json())
 app.get("/", (req, res) => {
   return res.status(200).json({"STATUS": "Ok", "MESSAGE": "Server is up and running"})
 })
-app.get("/pay", (req, res) => {
+app.get("/test", (req, res) => {
+  return res.status(302).redirect("https://codipher.com")
+})
+app.post("/pay", (req, res) => {
   const payId = uuidv4()
   const {payAmout, payCurrency, payDesc} = req.body
   const payment = new Payment(projectId, secret)
