@@ -15,18 +15,21 @@ app.get("/", (req, res) => {
   return res.status(200).json({"STATUS": "Ok", "MESSAGE": "Server is up and running"})
 })
 app.get("/test", (req, res) => {
-  return res.status(302).redirect("https://google.com")
+  return res.status(200).redirect("https://google.com")
 })
 app.post("/pay", (req, res) => {
   const payId = uuidv4()
   const {payAmout, payCurrency, payDesc} = req.body
+  if (!payAmout || !payCurrency || !payDesc) {
+    return res.status(400).json("MESSAGE": "Intercepted request")
+  }
   const payment = new Payment(projectId, secret)
   payment.paymentId = payId
   payment.paymentAmount = payAmout
   payment.paymentCurrency = payCurrency
   payment.paymentDescription = payDesc
   const payUrl = payment.getUrl()
-  return res.status(302).json({"URL": payUrl})
+  return res.status(200).json({"URL": payUrl})
 })
 
 app.listen(PORT, () => console.log("Server is running on port: " + PORT))
