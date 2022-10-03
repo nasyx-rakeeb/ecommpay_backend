@@ -21,7 +21,7 @@ app.post("/pay", (req, res) => {
   const payId = uuidv4()
   const {payAmout, payCurrency, payDesc} = req.body
   if (!payAmout || !payCurrency || !payDesc) {
-    return res.status(400).json("MESSAGE": "Intercepted request")
+    return res.status(400).json({"MESSAGE": "Intercepted request"})
   }
   const payment = new Payment(projectId, secret)
   payment.paymentId = payId
