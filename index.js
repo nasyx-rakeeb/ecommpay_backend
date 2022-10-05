@@ -5,8 +5,8 @@ import cors from "cors"
 
 const PORT = process.env.PORT || 3000
 const app = express()
-const secret = "8503b1297ca663bd24bdbae27bc35e68fa7e4fe2ec93458d20499740c9a0832f48369eaf0748925126979fc4c687558a98ee5fabeb59d3b08251035467c51ea9"
-const projectId = 91592
+const secret = "8ad76754f79a436dfdf853d99f8d0cc0e0c7d532cecd6fa68acdbeff8a7952ff071f214e3388720874828bdecdc34aac25b9a10cd2a285eea727762693fe83ad"
+const projectId = 91771
 
 app.use(express.json())
 app.use(cors())
