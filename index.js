@@ -25,7 +25,6 @@ app.post("/pay", (req, res) => {
   payment.paymentId = payId
   payment.paymentAmount = payAmout
   payment.paymentCurrency = payCurrency
-  payment.paymentDescription = payDesc
   const payUrl = payment.getUrl()
   return res.status(200).json({"URL": payUrl})
 })
