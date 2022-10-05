@@ -5,8 +5,8 @@ import cors from "cors"
 
 const PORT = process.env.PORT || 3000
 const app = express()
-const secret = "3b25b6736ee83c8018639489c0e729fd03188643fea7527df115a6c818654afeef47ff731e365554a4e78609ca879bff5cbbedacf1c3302d91f44e24e599ae9c"
-const projectId = 91662
+const secret = "8503b1297ca663bd24bdbae27bc35e68fa7e4fe2ec93458d20499740c9a0832f48369eaf0748925126979fc4c687558a98ee5fabeb59d3b08251035467c51ea9"
+const projectId = 91592
 
 app.use(express.json())
 app.use(cors())
@@ -14,13 +14,11 @@ app.use(cors())
 app.get("/", (req, res) => {
   return res.status(200).json({"STATUS": "Ok", "MESSAGE": "Server is up and running"})
 })
-app.get("/test", (req, res) => {
-  return res.status(200).redirect("https://google.com")
-})
+
 app.post("/pay", (req, res) => {
   const payId = uuidv4()
-  const {payAmout, payCurrency, payDesc} = req.body
-  if (!payAmout || !payCurrency || !payDesc) {
+  const {payAmout, payCurrency} = req.body
+  if (!payAmout || !payCurrency) {
     return res.status(400).json({"MESSAGE": "Intercepted request"})
   }
   const payment = new Payment(projectId, secret)
@@ -31,5 +29,14 @@ app.post("/pay", (req, res) => {
   const payUrl = payment.getUrl()
   return res.status(200).json({"URL": payUrl})
 })
+
+app.post('/payment/callback', (req, res) => {
+  const callback = new Callback(secret, req.body)
+  console.log("CALLBACK: " + callback)
+  if (callback.isPaymentSuccess()) {
+    const paymentCont = callback.payment()
+    const paymentId = callback.getPaymentId()
+  }
+});
 
 app.listen(PORT, () => console.log("Server is running on port: " + PORT))
